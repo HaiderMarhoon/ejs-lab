@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+app.set('view engine', 'ejs');
 const RESTAURANT = {
     name: 'The Green Byte Bistro',
     isOpen: true,
@@ -49,16 +50,25 @@ const RESTAURANT = {
     ]
 }
 
-const express = require('express');
+
 const morgan = require('morgan');
 
-app.get('/', (req, res) => {
-    res.send('Hello There!');
-});
 
 app.get('/',(req,res) => {
-    res.render('./views/home.ejs',{
-      msg:"Welcome to home"
-    })
+    res.render('home', { restaurant: RESTAURANT });
 })
+app.get('/menu',(req,res) => {
+    res.render('menu', {     menu: RESTAURANT.menu });
+})
+
+app.get('/menu/:category', (req, res) => {
+    const category = req.params.category;
+    const menuItems = RESTAURANT.menu.filter(item => item.category === category);
+    const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
+    res.render('category', {
+        menuItems: menuItems,
+        category: capitalizedCategory
+    });
+});
+
 app.listen(3000);

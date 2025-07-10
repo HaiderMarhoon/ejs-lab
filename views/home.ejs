@@ -4,12 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title><%= restaurant.name %></title>
 </head>
+<%- include('partials/nav') %>
+    <body>
 
-<body>
-    <%- include('./partials/nav') %>
         <h1>Home Page</h1>
-</body>
+        <h2>
+            <%= restaurant.name %>
+        </h2>
+        <p>Address: <%= restaurant.address %>
+        </p>
+        <p>Phone: <%= restaurant.phone %>
+        </p>
+    </body>
 
 </html>
